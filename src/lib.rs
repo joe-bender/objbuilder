@@ -3,6 +3,10 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
 
+struct Vert(f64, f64, f64);
+
+struct Face(Vert, Vert, Vert, Vert);
+
 pub fn write_file(path: &Path, contents: &str) {
     let display = path.display();
 
