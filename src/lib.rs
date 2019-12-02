@@ -21,6 +21,24 @@ pub fn write_file(path: &Path, contents: &str) {
     }
 }
 
+pub fn simple_plane() -> String {
+    let mut out = String::new();
+
+    let v1 = Vert(0.0, 0.0, 0.0);
+    let v2 = Vert(1.0, 0.0, 0.0);
+    let v3 = Vert(1.0, 1.0, 0.0);
+    let v4 = Vert(0.0, 1.0, 0.0);
+    let f1 = Face(v1, v2, v3, v4);
+
+    out.push_str(&format!("v {} {} {}\n", (f1.0).0, (f1.0).1, (f1.0).2));
+    out.push_str(&format!("v {} {} {}\n", (f1.1).0, (f1.1).1, (f1.1).2));
+    out.push_str(&format!("v {} {} {}\n", (f1.2).0, (f1.2).1, (f1.2).2));
+    out.push_str(&format!("v {} {} {}\n", (f1.3).0, (f1.3).1, (f1.3).2));
+    out.push_str(&format!("f {} {} {} {}\n", 1, 2, 3, 4));
+
+    out
+}
+
 pub fn unit_cube() -> String {
     let mut out = String::new();
 
