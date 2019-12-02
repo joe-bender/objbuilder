@@ -3,7 +3,11 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
 
-pub struct Vert(f64, f64, f64);
+pub struct Vert {
+    x: f64,
+    y: f64,
+    z: f64,
+}
 
 pub struct Face(Vert, Vert, Vert, Vert);
 
@@ -16,12 +20,12 @@ impl Writer {
 
     pub fn write_file(path: &Path, contents: &str) {
         let display = path.display();
-    
+
         let mut file = match File::create(&path) {
             Err(err) => panic!("Couldn't create {}: {}", display, err.description()),
             Ok(file) => file,
         };
-    
+
         match file.write_all(contents.as_bytes()) {
             Err(err) => panic!("Couldn't write to {}: {}", display, err.description()),
             Ok(_) => println!("Wrote model to {}", display),
@@ -32,16 +36,32 @@ impl Writer {
 pub fn simple_plane() -> String {
     let mut out = String::new();
 
-    let v1 = Vert(0.0, 0.0, 0.0);
-    let v2 = Vert(1.0, 0.0, 0.0);
-    let v3 = Vert(1.0, 1.0, 0.0);
-    let v4 = Vert(0.0, 1.0, 0.0);
+    let v1 = Vert {
+        x: 0.0,
+        y: 0.0,
+        z: 0.0,
+    };
+    let v2 = Vert {
+        x: 1.0,
+        y: 0.0,
+        z: 0.0,
+    };
+    let v3 = Vert {
+        x: 1.0,
+        y: 1.0,
+        z: 0.0,
+    };
+    let v4 = Vert {
+        x: 0.0,
+        y: 1.0,
+        z: 0.0,
+    };
     let f1 = Face(v1, v2, v3, v4);
 
-    out.push_str(&format!("v {} {} {}\n", (f1.0).0, (f1.0).1, (f1.0).2));
-    out.push_str(&format!("v {} {} {}\n", (f1.1).0, (f1.1).1, (f1.1).2));
-    out.push_str(&format!("v {} {} {}\n", (f1.2).0, (f1.2).1, (f1.2).2));
-    out.push_str(&format!("v {} {} {}\n", (f1.3).0, (f1.3).1, (f1.3).2));
+    out.push_str(&format!("v {} {} {}\n", (f1.0).x, (f1.0).y, (f1.0).z));
+    out.push_str(&format!("v {} {} {}\n", (f1.1).x, (f1.1).y, (f1.1).z));
+    out.push_str(&format!("v {} {} {}\n", (f1.2).x, (f1.2).y, (f1.2).z));
+    out.push_str(&format!("v {} {} {}\n", (f1.3).x, (f1.3).y, (f1.3).z));
     out.push_str(&format!("f {} {} {} {}\n", 1, 2, 3, 4));
 
     out
