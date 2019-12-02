@@ -4,18 +4,30 @@ use std::io::prelude::*;
 use std::path::Path;
 
 pub struct Vert {
-    x: f64,
-    y: f64,
-    z: f64,
+    pub x: f64,
+    pub y: f64,
+    pub z: f64,
 }
 
-pub struct Face(Vert, Vert, Vert, Vert);
+pub struct Face(pub Vert, pub Vert, pub Vert, pub Vert);
 
 pub struct Writer;
 
 impl Writer {
     pub fn write_faces(faces: Vec<Face>) {
         unimplemented!();
+    }
+
+    pub fn face_output(f: Face) -> String {
+        let mut out = String::new();
+
+        out.push_str(&format!("v {} {} {}\n", (f.0).x, (f.0).y, (f.0).z));
+        out.push_str(&format!("v {} {} {}\n", (f.1).x, (f.1).y, (f.1).z));
+        out.push_str(&format!("v {} {} {}\n", (f.2).x, (f.2).y, (f.2).z));
+        out.push_str(&format!("v {} {} {}\n", (f.3).x, (f.3).y, (f.3).z));
+        out.push_str(&format!("f {} {} {} {}\n", 1, 2, 3, 4));
+
+        out
     }
 
     pub fn write_file(path: &Path, contents: &str) {
