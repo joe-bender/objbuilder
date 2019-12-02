@@ -3,21 +3,29 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
 
-struct Vert(f64, f64, f64);
+pub struct Vert(f64, f64, f64);
 
-struct Face(Vert, Vert, Vert, Vert);
+pub struct Face(Vert, Vert, Vert, Vert);
 
-pub fn write_file(path: &Path, contents: &str) {
-    let display = path.display();
+pub struct Writer;
 
-    let mut file = match File::create(&path) {
-        Err(err) => panic!("Couldn't create {}: {}", display, err.description()),
-        Ok(file) => file,
-    };
+impl Writer {
+    pub fn write_faces(faces: Vec<Face>) {
+        unimplemented!();
+    }
 
-    match file.write_all(contents.as_bytes()) {
-        Err(err) => panic!("Couldn't write to {}: {}", display, err.description()),
-        Ok(_) => println!("Wrote model to {}", display),
+    pub fn write_file(path: &Path, contents: &str) {
+        let display = path.display();
+    
+        let mut file = match File::create(&path) {
+            Err(err) => panic!("Couldn't create {}: {}", display, err.description()),
+            Ok(file) => file,
+        };
+    
+        match file.write_all(contents.as_bytes()) {
+            Err(err) => panic!("Couldn't write to {}: {}", display, err.description()),
+            Ok(_) => println!("Wrote model to {}", display),
+        }
     }
 }
 
